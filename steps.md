@@ -25,7 +25,7 @@ Some things to keep in mind first as of time of installation on 3/28/2020
 
 `lsblk`
 
-#### Partitioning the drive
+### Partitioning the drive
 
 `cgdisk /dev/nvme0n1`
 
@@ -45,9 +45,57 @@ Partition name: Whatever you want lol
 
 First sector: default
 
-Size in sectors: +22G
+Size in sectors: 22G
 
 Hex code: 8300 (Linux Filesystem)
 
 Partition name: whatever you want
+
+**Root Partition**
+
+First sector: default
+
+Size in sectors: 30G
+
+Hex code: 8300 (Linux Filesystem)
+
+Partition name: whatever
+
+**Home partition**
+
+First sector: default
+
+Size in sectors: Rest of hard drive (just hit enter when asked to allocate space)
+
+Hex code: 8300
+
+Partition name: whatever
+
+**Write partition table to disk**
+
+**Set up swap partition**
+
+`mkswap /dev/nvme0n1p2`
+
+`swapon /dev/nvme0n1p2`
+
+Running `lsblk` should now show [SWAP] next to /dev/nvme0n1p2
+
+### Mount partitions
+
+`mount /dev/nvme0n1p3 /mnt`
+
+**Create home and boot directory for mounting**
+
+`mkdir /mnt/boot`
+
+`mkdir /mnt/home`
+
+**Mount boot and home**
+
+`mount /dev/nvme0n1p1 /mnt/boot`
+
+`mount/dev/nvme0n1p4 /mnt/home`
+
+
 
